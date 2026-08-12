@@ -111,7 +111,7 @@ export default async function handler(req, res) {
     };
 
     await transporter.sendMail({
-      from: `"Portfolio Contact" <${user}>`,
+      from: `"MUNEEB DEVS" <${user}>`,
       to: TO_ADDRESS,
       replyTo: `${safe.name} <${String(email).trim()}>`, // hitting reply answers the visitor
       subject: `New portfolio enquiry from ${safe.name}`,

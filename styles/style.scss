@@ -260,9 +260,66 @@ section, .section{
       z-index: 1;
     }
   }
-  .react-parallax-bgimage {
-    object-fit: cover;
-    top: -150px;
+}
+/* replaces react-parallax's raw, unoptimized <img> background (it bypassed
+   next/image entirely — no AVIF/WebP, no responsive srcset, no native lazy
+   loading — and was showing up as the page's Largest Contentful Paint on a
+   throttled connection because the browser had to fetch a full-size JPG for
+   a section that isn't even above the fold). next/image behind this wrapper
+   gets all of that for free; the subtle drift on scroll is done with GSAP
+   instead of the library's own parallax math (same technique already used
+   on the hero video and the portfolio card images). */
+.section-bg{
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+.section-bg-img{
+  object-fit: cover;
+  object-position: center;
+}
+/* hero background video — fills #hero-area behind the content, with its
+   own dark tint layered under the section's existing bottom-fade (.bg-bottom
+   :before) so the name/title stay legible over any frame of the footage */
+.hero-video-wrap{
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  &::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(12, 13, 15, .55);
+  }
+}
+.hero-bg-video{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+#hero-area{
+  .hero-inner,
+  #fly{
+    position: relative;
+    z-index: 2;
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  /* swap the moving footage for its static poster frame rather than force
+     autoplay on visitors who've asked the OS to limit motion */
+  .hero-bg-video{
+    display: none;
+  }
+  .hero-video-wrap{
+    background: url('/img/background/1.jpg') center/cover no-repeat;
   }
 }
 .py-5.position-relative{
@@ -871,7 +928,7 @@ html, body{
 .work-card{
   display: flex;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   position: relative;
   background: #0f1113;
   border-radius: 22px;
@@ -903,14 +960,27 @@ html, body{
   user-select: none;
 }
 
-/* the screenshot fills the entire card */
+/* the screenshot fills the entire card. Project screenshots come in wildly
+   different aspect ratios (1.4:1 up to 3:1) — cropping every one to the
+   card's fixed ratio was cutting off the left/right edges of real content
+   (nav items, headlines). Two layers fix this without breaking the grid's
+   uniform card size: a blurred, scaled-up copy of the same image fills the
+   card edge-to-edge as a backdrop, and the real screenshot sits on top at
+   object-fit: contain, so the entire capture is always visible, letterboxed
+   into the blurred backdrop instead of cropped. */
 .work-card-media{
   position: absolute;
   inset: 0;
   overflow: hidden;
   background: #0f1113;
-  img.work-card-img{
+  img.work-card-img-blur{
     object-fit: cover;
+    object-position: top center;
+    filter: blur(32px) saturate(1.25) brightness(.55);
+    transform: scale(1.25);
+  }
+  img.work-card-img{
+    object-fit: contain;
     object-position: top center;
     /* transform is driven entirely by GSAP (scroll drift + hover zoom, see
        portfoliopage.jsx / homeportfolio.jsx) so it is left out of this
@@ -934,12 +1004,12 @@ html, body{
   transition: opacity .4s ease;
 }
 .work-card:hover .work-card-media img.work-card-img{
-  filter: brightness(.55) saturate(1.1);
+  filter: brightness(.7) saturate(1.1);
 }
 .work-card.no-link{
   cursor: default;
   &:hover .work-card-media img.work-card-img{
-    filter: brightness(.85);
+    filter: brightness(.9);
   }
 }
 .work-card-overlay{

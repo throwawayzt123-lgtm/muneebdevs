@@ -41,6 +41,13 @@ const projects = [
     image: '/images/portfolio/fullstack/webcraftconsulting.png'
   },
   {
+    title: 'Vemoosc',
+    tag: 'React JS',
+    description: 'Oil and industrial services company platform',
+    url: 'https://vemoosc.com/',
+    image: '/images/portfolio/fullstack/UAE-industrialServices.png'
+  },
+  {
     title: 'Velox Elite',
     tag: 'React JS',
     description: 'Luxury car rental platform with live booking',
@@ -180,9 +187,18 @@ function HomePortfolio() {
                 <div className="work-card-media">
                   <Image
                     src={project.image}
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    quality={20}
+                    sizes="(max-width: 767px) 100vw, 50vw"
+                    className="work-card-img-blur"
+                  />
+                  <Image
+                    src={project.image}
                     alt={project.title}
                     fill
-                    sizes="(max-width: 767px) 100vw, 44vw"
+                    sizes="(max-width: 767px) 100vw, 50vw"
                     className="work-card-img"
                   />
                   <span className="work-card-overlay">

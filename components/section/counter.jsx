@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Parallax } from "react-parallax";
+import Image from 'next/image';
 import { gsap, registerGsap, prefersReducedMotion, rollNumbers } from '../../lib/gsapAnimations';
 
-const image1 = "./img/background/3.jpg";
+const image1 = "/img/background/3.jpg";
 
 const stats = [
   { end: 3000, label: 'Hours of Works' },
@@ -63,23 +63,24 @@ function Counter() {
 
   return (
     <div className="section bg-top bg-bottom py-0">
-      <Parallax className="py-5" bgImage={image1} bgImageAlt="" strength={300}>
-        <div className="py-5 position-relative" ref={rootRef}>
-          <div className="container">
-            <div className="row">
-              {stats.map((stat, i) => (
-                <div className="col-md-3" key={stat.label}>
-                  {i > 0 && <span className="de_count-divider" aria-hidden="true"></span>}
-                  <div className="de_count text-center">
-                    <h3 className="timer">{counts[i].toLocaleString()}</h3>
-                    <span>{stat.label}</span>
-                  </div>
+      <div className="section-bg" aria-hidden="true">
+        <Image src={image1} alt="" fill sizes="100vw" className="section-bg-img" />
+      </div>
+      <div className="py-5 position-relative" ref={rootRef}>
+        <div className="container">
+          <div className="row">
+            {stats.map((stat, i) => (
+              <div className="col-md-3" key={stat.label}>
+                {i > 0 && <span className="de_count-divider" aria-hidden="true"></span>}
+                <div className="de_count text-center">
+                  <h3 className="timer">{counts[i].toLocaleString()}</h3>
+                  <span>{stat.label}</span>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
-      </Parallax>
+      </div>
     </div>
   );
 }

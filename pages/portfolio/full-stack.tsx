@@ -60,7 +60,7 @@ const projects = [
     tag: 'React JS',
     description: 'Oil and industrial services company platform',
     url: 'https://vemoosc.com/',
-    image: '/images/portfolio/fullstack/Vemoosc.png'
+    image: '/images/portfolio/fullstack/UAE-industrialServices.png'
   },
   {
     title: 'AutoLab',

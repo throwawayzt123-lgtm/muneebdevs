@@ -22,16 +22,14 @@ const Footer = () => {
           {/* Col 1: logo + tagline */}
           <div className="col-lg-4 footer-col footer-brand">
             <NextLink href="/" className="footer-logo">
-              <Image src={logoImg} alt="Muneeb Ur Rehman" height={48} style={{ width: 'auto', height: '48px' }} />
+              <Image src={logoImg} alt="Muneeb Ur Rehman" height={48} style={{ width: '250px', height: '130px' }} />
             </NextLink>
             <p className="footer-tagline">
               Design you notice. Engineering you don&apos;t have to.
             </p>
             <div className="footer-social">
-              <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i className="fa fa-linkedin"></i></a>
-              <a href="https://github.com/" target="_blank" rel="noreferrer" aria-label="GitHub"><i className="fa fa-github"></i></a>
-              <a href="mailto:muneebdevs07@gmail.com" aria-label="Email"><i className="fa fa-envelope"></i></a>
-              <a href="tel:+923328863805" aria-label="Phone"><i className="fa fa-phone"></i></a>
+              <a href="https://www.linkedin.com/in/muneebdevs07/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i className="fa fa-linkedin"></i></a>
+              <a href="https://github.com/Muneeb-ur-Rehman11" target="_blank" rel="noreferrer" aria-label="GitHub"><i className="fa fa-github"></i></a>
             </div>
           </div>
 
@@ -59,10 +57,7 @@ const Footer = () => {
                 <i className="fa fa-phone" aria-hidden="true"></i>
                 <a href="tel:+923328863805">+92 332-8863805</a>
               </li>
-              <li>
-                <i className="fa fa-map-marker" aria-hidden="true"></i>
-                <span>Cavalry Ground, Lahore, Pakistan</span>
-              </li>
+              
             </ul>
           </div>
         </div>

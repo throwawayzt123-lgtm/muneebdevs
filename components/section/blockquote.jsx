@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { Parallax } from "react-parallax";
+import Image from 'next/image';
 import { gsap, registerGsap, prefersReducedMotion } from '../../lib/gsapAnimations';
 
-const image1 = "./img/background/2.jpg";
+const image1 = "/img/background/2.jpg";
 
 const QUOTE = "Clean code and thoughtful design are never accidents. Every interface I build is meant to load fast, feel effortless and work everywhere, because the details are what separate a website from an experience.";
 
@@ -64,27 +64,28 @@ function Mblockquote() {
 
   return (
     <div className="section bg-top bg-bottom py-0">
-      <Parallax className="pb-5" bgImage={image1} bgImageAlt="" strength={300}>
-        <div className="py-5 position-relative" ref={rootRef}>
-          <div className="container">
-            <div className="row align-items-center">
-              <div className="col-md-10 offset-md-1">
-                <div className="spacer-double"></div>
-                <blockquote className="q-big">
-                  <i className="d-big icon_quotations"></i>
-                  {QUOTE.split(' ').map((word, i) => (
-                    <span className="q-word" key={`${word}-${i}`}>{word} </span>
-                  ))}
-                  <span className="d-quote-by">Muneeb Ur Rehman</span>
-                </blockquote>
-                <div className="spacer-double"></div>
-                <div className="spacer-double"></div>
-                <div className="spacer-single"></div>
-              </div>
+      <div className="section-bg" aria-hidden="true">
+        <Image src={image1} alt="" fill sizes="100vw" className="section-bg-img" />
+      </div>
+      <div className="py-5 position-relative" ref={rootRef}>
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-md-10 offset-md-1">
+              <div className="spacer-double"></div>
+              <blockquote className="q-big">
+                <i className="d-big icon_quotations"></i>
+                {QUOTE.split(' ').map((word, i) => (
+                  <span className="q-word" key={`${word}-${i}`}>{word} </span>
+                ))}
+                <span className="d-quote-by">Muneeb Ur Rehman</span>
+              </blockquote>
+              <div className="spacer-double"></div>
+              <div className="spacer-double"></div>
+              <div className="spacer-single"></div>
             </div>
           </div>
         </div>
-      </Parallax>
+      </div>
     </div>
   );
 }

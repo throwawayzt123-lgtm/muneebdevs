@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Parallax } from "react-parallax";
+import Image from 'next/image';
 import {
   gsap, registerGsap, prefersReducedMotion,
   wipeHeading, animateWipeHeading, animateUnderline,
 } from '../../lib/gsapAnimations';
 
-const image1 = "./img/background/5.jpg";
+const image1 = "/img/background/5.jpg";
 
 const CONTACT_EMAIL = 'muneebdevs07@gmail.com';
 const CONTACT_PHONE = '+92 332-8863805';
@@ -95,10 +95,32 @@ export default function Contactus() {
     };
 
     try {
-      /* 1) FormSubmit — plain JS, no account or API key. It posts straight to
-         the inbox address. The very first submission triggers a one-time
-         confirmation email to CONTACT_EMAIL; click that link once and every
-         later submission arrives automatically. */
+      /* 1) Server route (Gmail via nodemailer), tried first. This sends from
+         your own Gmail account, so the recipient sees "MUNEEB DEVS" as the
+         sender — FormSubmit below is a third-party relay and always shows
+         as "FormSubmit" in the inbox instead, with no way to override that.
+         Requires GMAIL_APP_PASSWORD in .env.local; falls through cleanly
+         to FormSubmit below until that's set.
+         trailing slash matters: next.config.js sets trailingSlash: true, and a
+         308 redirect on POST can drop the request body in some browsers */
+      const res = await fetch('/api/contact/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      }).catch(() => null);
+      const data = res ? await res.json().catch(() => ({})) : {};
+
+      if (res && res.ok && data.ok) {
+        sent();
+        return;
+      }
+      if (data.errors) setErrors(data.errors);
+
+      /* 2) FormSubmit — plain JS, no account or API key, works with zero
+         setup. Used as a backup while Gmail isn't configured yet (or if it
+         ever fails). The very first submission to a given address triggers
+         a one-time confirmation email; click that link once and every later
+         submission through this path arrives automatically. */
       const fs = await fetch(FORMSUBMIT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -115,53 +137,26 @@ export default function Contactus() {
 
       /* FormSubmit answers 200 even on failure, so the JSON body is the real
          result. `success` comes back as the string "true"/"false". */
+      let formsubmitPendingActivation = false;
       if (fs && fs.ok) {
         const fsData = await fs.json().catch(() => ({}));
         if (String(fsData.success) === 'true') {
           sent();
           return;
         }
-        /* Awaiting the one-time "Activate Form" click: say so plainly rather
-           than reporting a success that did not happen. */
         if (/activat/i.test(fsData.message || '')) {
-          setStatus({
-            type: 'error',
-            text: `This form is not activated yet. Please check ${CONTACT_EMAIL} for the "Activate Form" email and click the link, then try again.`,
-          });
-          return;
+          formsubmitPendingActivation = true;
         }
-      }
-
-      /* 2) Server route (Gmail via nodemailer) if it has credentials.
-         trailing slash matters: next.config.js sets trailingSlash: true, and a
-         308 redirect on POST can drop the request body in some browsers */
-      const res = await fetch('/api/contact/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      });
-      const data = await res.json().catch(() => ({}));
-
-      if (res.ok && data.ok) {
-        sent();
-        return;
       }
 
       /* 3) Last resort: hand off to the visitor's mail app so the enquiry is
          never silently lost. */
-      if (data.notConfigured) {
-        mailtoFallback();
-        setStatus({
-          type: 'success',
-          text: `Opening your email app. If nothing happens, write to ${CONTACT_EMAIL} directly.`,
-        });
-        return;
-      }
-
-      if (data.errors) setErrors(data.errors);
+      mailtoFallback();
       setStatus({
-        type: 'error',
-        text: data.error || `Sorry, the message could not be sent. Please email ${CONTACT_EMAIL} directly.`,
+        type: 'success',
+        text: formsubmitPendingActivation
+          ? `Opening your email app instead — the backup form needs a one-time activation first. If nothing happens, write to ${CONTACT_EMAIL} directly.`
+          : `Opening your email app. If nothing happens, write to ${CONTACT_EMAIL} directly.`,
       });
     } catch (err) {
       setStatus({
@@ -240,8 +235,10 @@ export default function Contactus() {
 
   return (
     <div className="section bg-top bg-bottom py-0">
-      <Parallax className="py-5" bgImage={image1} bgImageAlt="" strength={300}>
-        <div className="py-5 position-relative" ref={rootRef}>
+      <div className="section-bg" aria-hidden="true">
+        <Image src={image1} alt="" fill sizes="100vw" className="section-bg-img" />
+      </div>
+      <div className="py-5 position-relative" ref={rootRef}>
           <div className="container">
             <div className="row">
               <div className="col-md-12 text-center">
@@ -364,7 +361,6 @@ export default function Contactus() {
             </div>
           </div>
         </div>
-      </Parallax>
-    </div>
-  );
+      </div>
+    );
 }

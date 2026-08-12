@@ -183,9 +183,18 @@ function PortfolioPage({ title = '', subtitle = '', intro = '', services = [], p
                 <div className="work-card-media">
                   <Image
                     src={project.image}
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    quality={20}
+                    sizes="(max-width: 767px) 100vw, 50vw"
+                    className="work-card-img-blur"
+                  />
+                  <Image
+                    src={project.image}
                     alt={project.title}
                     fill
-                    sizes="(max-width: 767px) 100vw, 44vw"
+                    sizes="(max-width: 767px) 100vw, 50vw"
                     className="work-card-img"
                   />
                   {project.url && (

@@ -41,7 +41,7 @@ const Navbar = function () {
         <nav className="navbar transition">
         <div className="container">
           <Link  className="navbar-brand" activeClass="active" spy to="hero-area">
-            <Image src={logoImg} className="img-fluid d-block imginit" alt="Muneeb Ur Rehman" height={62} priority style={{width: 'auto', height: '62px'}}/>
+            <Image src={logoImg} className="img-fluid d-block imginit" alt="Muneeb Ur Rehman" height={62} priority style={{width: '250px', height: '130px'}}/>
           </Link>
           {/* Desktop menu Here */}
           <div className="dekstopmenu">

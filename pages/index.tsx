@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Parallax } from "react-parallax";
 import { Link } from "react-scroll";
 import Seo from '../components/Seo';
 import Navbar from '../components/layout/Navbar';
@@ -16,8 +15,6 @@ import ScrollToTopBtn from '../components/layout/ScrollToTop';
 import WhatsappButton from '../components/layout/WhatsappButton';
 import { useScrollRefresh, useRevealFallback } from '../lib/gsapAnimations';
 import { createGlobalStyle } from 'styled-components';
-
-const image1 ="./img/background/1.jpg";
 
 const GlobalStyles = createGlobalStyle`
   .navbar-brand .imginit{
@@ -41,6 +38,7 @@ export default function Home() {
           }, 3000)
       }
     }, []);
+    
   return (
     <>
     <Seo path="/" />
@@ -63,14 +61,24 @@ export default function Home() {
 
       {/* HERO */}
       <section id="hero-area" className="bg-bottom py-0">
-        <Parallax bgImage={image1} bgImageAlt="Muneeb Ur Rehman, Full Stack Web Developer" strength={300}>
+        <div className="hero-video-wrap" aria-hidden="true">
+          <video
+            className="hero-bg-video"
+            src="/bgvideo.mp4"
+            poster="/img/background/1.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          />
+        </div>
         <Hero/>
         <Link smooth spy to="about">
           <span className="mouse transition" id="fly">
               <span className="scroll"></span>
           </span>
         </Link>
-        </Parallax>
       </section>
 
       {/* ABOUT */}
@@ -103,9 +111,8 @@ export default function Home() {
 
       <div className="float-text">
           <div className="de_social-icons">
-              <a className="buton" href="https://www.linkedin.com/" target="_blank" rel="noreferrer"><i className="fa fa-linkedin fa-lg"></i></a>
-              <a className="buton" href="https://github.com/" target="_blank" rel="noreferrer"><i className="fa fa-github fa-lg"></i></a>
-              <a className="buton" href="mailto:muneebdevs07@gmail.com"><i className="fa fa-envelope fa-lg"></i></a>
+              <a className="buton" href="https://www.linkedin.com/in/muneebdevs07/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i className="fa fa-linkedin fa-lg"></i></a>
+              <a className="buton" href="https://github.com/Muneeb-ur-Rehman11" target="_blank" rel="noreferrer" aria-label="GitHub"><i className="fa fa-github fa-lg"></i></a>
           </div>
           <span>Follow Me</span>
       </div>
