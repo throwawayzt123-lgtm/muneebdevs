@@ -19,7 +19,7 @@ const Footer = () => {
     <footer className="site-footer">
       <div className="container">
         <div className="row footer-row">
-          {/* Col 1: logo + tagline */}
+          {/* Col 1: logo + tagline */} 
           <div className="col-lg-4 footer-col footer-brand">
             <NextLink href="/" className="footer-logo">
               <Image src={logoImg} alt="Muneeb Ur Rehman" height={48} style={{ width: '250px', height: '130px' }} />
