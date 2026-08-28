@@ -28,10 +28,10 @@ const services = [
 
 const projects = [
   {
-    title: 'Aurelia Cafe',
+    title: 'Velvet Drip',
     tag: '3D / WebGL',
     description: 'Cinematic 3D coffee brand experience',
-    url: 'https://aurelia-cafe-henna.vercel.app/home2',
+    url: 'https://velvetdrip-lilac.vercel.app/',
     image: '/images/portfolio/elitework/aurelia-cafewebsite.png'
   },
   {
