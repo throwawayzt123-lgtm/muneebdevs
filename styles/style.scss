@@ -930,34 +930,60 @@ html, body{
   width: 100%;
   aspect-ratio: 16 / 9;
   position: relative;
-  background: #0f1113;
-  border-radius: 22px;
+  background: #0c0d0f;
+  border-radius: 18px;
   overflow: hidden;
   text-decoration: none;
   isolation: isolate;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, .04) inset, 0 20px 40px rgba(0, 0, 0, .35);
-  transition: transform .5s cubic-bezier(.2, .7, .3, 1), box-shadow .5s ease;
+  border: solid 1px rgba(255, 255, 255, .08);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .05) inset, 0 24px 48px -14px rgba(0, 0, 0, .55);
+  transition: transform .6s cubic-bezier(.16, 1, .3, 1), box-shadow .6s cubic-bezier(.16, 1, .3, 1), border-color .5s ease;
   &:hover{
-    transform: translateY(-6px);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, .06) inset, 0 34px 64px rgba(0, 0, 0, .55);
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, .18);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .08) inset, 0 32px 64px -16px rgba(0, 0, 0, .65);
   }
 }
-/* large ghost numeral in the top corner — the signature detail that marks
-   the project's position in the set, poster-style */
+/* a faint diagonal sheen that sweeps across on hover — the quiet, precise
+   micro-interaction that reads "premium" instead of a loud color change */
+.work-card::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, .045) 45%, rgba(255, 255, 255, .09) 50%, rgba(255, 255, 255, .045) 55%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform .9s cubic-bezier(.16, 1, .3, 1);
+}
+.work-card:hover::before{
+  transform: translateX(120%);
+}
+/* ghost index paired with a hairline rule — a quiet editorial mark of the
+   project's position, not a decorative sticker */
 .work-card-index{
   position: absolute;
-  top: 14px;
-  right: 20px;
+  top: 20px;
+  right: 22px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
   font-family: var(--title-font);
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: .5px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
   line-height: 1;
-  color: rgba(255, 255, 255, .8);
+  color: rgba(255, 255, 255, .55);
   text-shadow: 0 1px 6px rgba(0, 0, 0, .6);
   z-index: 3;
   pointer-events: none;
   user-select: none;
+  &::before{
+    content: "";
+    width: 14px;
+    height: 1px;
+    background: rgba(255, 255, 255, .35);
+  }
 }
 
 /* the screenshot fills the entire card. Project screenshots come in wildly
@@ -998,18 +1024,18 @@ html, body{
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(6, 7, 8, 0) 30%, rgba(6, 7, 8, .5) 58%, rgba(4, 5, 6, .88) 82%, rgba(2, 3, 4, .97) 100%);
+  background: linear-gradient(180deg, rgba(6, 7, 8, 0) 34%, rgba(6, 7, 8, .42) 60%, rgba(4, 5, 6, .85) 83%, rgba(2, 3, 4, .96) 100%);
   z-index: 1;
   pointer-events: none;
   transition: opacity .4s ease;
 }
 .work-card:hover .work-card-media img.work-card-img{
-  filter: brightness(.7) saturate(1.1);
+  filter: brightness(.72) saturate(1.05);
 }
 .work-card.no-link{
   cursor: default;
   &:hover .work-card-media img.work-card-img{
-    filter: brightness(.9);
+    filter: brightness(.92);
   }
 }
 .work-card-overlay{
@@ -1028,19 +1054,21 @@ html, body{
 .work-card-visit{
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: $color;
+  gap: 9px;
+  padding: 12px 24px;
+  background: rgba(10, 11, 13, .45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: solid 1px rgba(255, 255, 255, .28);
   color: #fff;
   font-family: var(--title-font);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
   border-radius: 40px;
-  box-shadow: 0 10px 24px rgba(224, 32, 32, .4);
   transform: translateY(12px) scale(.94);
-  transition: transform .45s cubic-bezier(.2, .7, .3, 1);
+  transition: transform .5s cubic-bezier(.16, 1, .3, 1), border-color .4s ease, background .4s ease;
   white-space: nowrap;
   i{
     margin-left: 2px;
@@ -1048,6 +1076,8 @@ html, body{
 }
 .work-card:hover .work-card-visit{
   transform: translateY(0) scale(1);
+  border-color: rgba(207, 31, 31, .55);
+  background: rgba(207, 31, 31, .16);
 }
 /* unused on this layout */
 .work-card-shade{
@@ -1064,44 +1094,49 @@ html, body{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
-  padding: 22px 24px 22px;
+  gap: 10px;
+  padding: 26px 28px;
 }
+/* ghost outline badge rather than a solid fill — reads as a quiet label,
+   not a loud call-to-action, and only picks up brand color on hover */
 .work-card-tag{
   font-family: var(--title-font);
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 1.4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
-  color: #fff;
-  background: rgba(224, 32, 32, .85);
-  border: solid 1px rgba(255, 255, 255, .2);
+  color: rgba(255, 255, 255, .85);
+  background: rgba(255, 255, 255, .06);
+  border: solid 1px rgba(255, 255, 255, .18);
   border-radius: 40px;
-  padding: 5px 14px;
+  padding: 6px 14px;
   white-space: nowrap;
-  backdrop-filter: blur(6px);
-  transition: background .35s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: color .4s ease, border-color .4s ease, background .4s ease;
 }
 .work-card:hover .work-card-tag{
-  background: $color;
+  color: $color;
+  border-color: rgba(207, 31, 31, .5);
+  background: rgba(207, 31, 31, .1);
 }
 .work-card-title{
   margin: 0;
-  font-size: 22px;
-  line-height: 1.25em;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: .1px;
+  line-height: 1.3em;
   color: #fff;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, .4);
-  transition: color .3s ease;
-}
-.work-card:hover .work-card-title{
-  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, .45);
 }
 .work-card-desc{
   margin: 0;
-  max-width: 92%;
-  font-size: 13.5px;
-  line-height: 1.5em;
-  color: rgba(255, 255, 255, .7);
+  max-width: 94%;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.65em;
+  letter-spacing: .1px;
+  color: rgba(255, 255, 255, .6);
   /* keep cards from growing tall with long copy */
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -1109,7 +1144,7 @@ html, body{
   overflow: hidden;
   opacity: 0;
   max-height: 0;
-  transition: opacity .35s ease, max-height .35s ease;
+  transition: opacity .4s ease, max-height .4s ease;
 }
 .work-card:hover .work-card-desc{
   opacity: 1;
@@ -1119,22 +1154,23 @@ html, body{
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 2px;
+  margin-top: 4px;
   font-family: var(--title-font);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, .75);
+  color: rgba(255, 255, 255, .8);
   opacity: 0;
   transform: translateY(6px);
-  transition: color .35s ease, opacity .35s ease, transform .35s ease;
+  transition: color .4s ease, opacity .4s ease, transform .4s ease;
   i{
-    transition: transform .35s cubic-bezier(.2, .7, .3, 1);
+    font-size: 11px;
+    transition: transform .4s cubic-bezier(.16, 1, .3, 1);
   }
 }
 .work-card:hover .work-card-link{
-  color: #fff;
+  color: $color;
   opacity: 1;
   transform: translateY(0);
   i{

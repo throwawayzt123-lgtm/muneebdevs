@@ -74,6 +74,9 @@ const Navbar = function () {
                   <li>
                     <NextLink href="/portfolio/wordpress">Wordpress</NextLink>
                   </li>
+                  <li>
+                    <NextLink href="/portfolio/elite-class-work">Elite Class Work</NextLink>
+                  </li>
                 </ul>
               </li>
               <li className="nav-item">
@@ -119,6 +122,9 @@ const Navbar = function () {
                   </li>
                   <li>
                     <NextLink onClick={() => setMenu(false)} href="/portfolio/wordpress">Wordpress</NextLink>
+                  </li>
+                  <li>
+                    <NextLink onClick={() => setMenu(false)} href="/portfolio/elite-class-work">Elite Class Work</NextLink>
                   </li>
                 </ul>
               </li>

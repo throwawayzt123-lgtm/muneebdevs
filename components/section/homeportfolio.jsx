@@ -232,6 +232,9 @@ function HomePortfolio() {
           <NextLink className="btn-main btn-line" href="/portfolio/wordpress">
             Wordpress Work
           </NextLink>
+          <NextLink className="btn-main btn-line" href="/portfolio/elite-class-work">
+            Elite Class Work
+          </NextLink>
         </div>
       </div>
     </div>

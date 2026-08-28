@@ -12,6 +12,7 @@ const routes = [
   { path: '/', changefreq: 'weekly', priority: '1.0' },
   { path: '/portfolio/full-stack/', changefreq: 'monthly', priority: '0.9' },
   { path: '/portfolio/wordpress/', changefreq: 'monthly', priority: '0.9' },
+  { path: '/portfolio/elite-class-work/', changefreq: 'monthly', priority: '0.9' },
 ];
 
 function generateSitemap() {
