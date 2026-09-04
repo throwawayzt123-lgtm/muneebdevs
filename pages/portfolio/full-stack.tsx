@@ -26,55 +26,68 @@ const services = [
   }
 ];
 
+/*
+  `order` controls the position of each card in the grid — 1 shows first, 2
+  second, and so on. Change the numbers here to re-arrange the projects; the
+  list below can stay in any order, and the "01 / 02 / …" label on each card
+  follows the sorted position automatically.
+*/
 const projects = [
   {
+    order: 1,
     title: 'Web Bridge Consulting',
     tag: 'Next JS',
     description: 'Full-spectrum BPO and telecom agency site',
     url: 'https://www.webbridgeconsulting.com/',
-    image: '/images/portfolio/fullstack/Webbridge.png'
+    image: '/images/portfolio/fullstack/Webbridge.webp'
   },
   {
+    order: 2,
     title: 'Web Bridge CRM',
     tag: 'CRM',
     description: 'Enterprise management platform with role-based access',
     url: 'https://webbridgecrm.vercel.app/login',
-    image: '/images/portfolio/fullstack/WebBridgecrm.png'
+    image: '/images/portfolio/fullstack/webbridgecrm.webp'
   },
   {
+    order: 3,
     title: 'Chandup CRM',
     tag: 'CRM',
     description: 'Repair management platform for admin and staff',
     url: 'https://chandups.vercel.app/',
-    image: '/images/portfolio/fullstack/chandupscrm.png'
+    image: '/images/portfolio/fullstack/chandupscrm.webp'
   },
   {
+    order: 4,
     title: 'Webcraft Consulting',
     tag: 'Next JS',
     description: 'Business consulting site with custom animations',
     url: 'https://webcraftcons.com/',
-    image: '/images/portfolio/fullstack/webcraftconsulting.png'
+    image: '/images/portfolio/fullstack/webcraftconsulting.webp'
   },
   {
+    order: 5,
     title: 'Vemoosc',
     tag: 'React JS',
     description: 'Oil and industrial services company platform',
     url: 'https://vemoosc.com/',
-    image: '/images/portfolio/fullstack/UAE-industrialServices.png'
+    image: '/images/portfolio/fullstack/vemooscUAE-industrialServices.webp'
   },
   {
+    order: 6,
     title: 'AutoLab',
     tag: 'React JS',
     description: 'Premium car detailing and studio booking site',
     url: 'https://autolab-six.vercel.app/',
-    image: '/images/portfolio/fullstack/autolabcardetailing.png'
+    image: '/images/portfolio/fullstack/autolabcardetailing.webp'
   },
   {
+    order: 7,
     title: 'Velox Elite',
     tag: 'React JS',
     description: 'Luxury car rental platform with live booking',
     url: 'https://veloxelite.vercel.app/',
-    image: '/images/portfolio/fullstack/veloxelite-carrental.png'
+    image: '/images/portfolio/elitework/veloxelite.webp'
   }
 ];
 

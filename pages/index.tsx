@@ -3,6 +3,7 @@ import { Link } from "react-scroll";
 import Seo from '../components/Seo';
 import Navbar from '../components/layout/Navbar';
 import Hero from '../components/section/Hero';
+import HeroVideo from '../components/layout/HeroVideo';
 import About from '../components/section/about';
 import Blockquote from '../components/section/blockquote';
 import Whatido from '../components/section/whatido';
@@ -14,16 +15,6 @@ import Footer from '../components/section/footer';
 import ScrollToTopBtn from '../components/layout/ScrollToTop';
 import WhatsappButton from '../components/layout/WhatsappButton';
 import { useScrollRefresh, useRevealFallback } from '../lib/gsapAnimations';
-import { createGlobalStyle } from 'styled-components';
-
-const GlobalStyles = createGlobalStyle`
-  .navbar-brand .imginit{
-      display: block ;
-    }
-    .navbar-brand .imgsaly{
-      display: none !important;
-    }
-`;
 
 export default function Home() {
   useScrollRefresh();
@@ -43,8 +34,6 @@ export default function Home() {
     <>
     <Seo path="/" />
 
-    <GlobalStyles/>
-
     {/* LOADER */}
     <div id='mainpreloader'>
       <div className='preloader fadeOut'>
@@ -61,18 +50,7 @@ export default function Home() {
 
       {/* HERO */}
       <section id="hero-area" className="bg-bottom py-0">
-        <div className="hero-video-wrap" aria-hidden="true">
-          <video
-            className="hero-bg-video"
-            src="/bgvideo.mp4"
-            poster="/img/background/1.jpg"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-          />
-        </div>
+        <HeroVideo />
         <Hero/>
         <Link smooth spy to="about">
           <span className="mouse transition" id="fly">

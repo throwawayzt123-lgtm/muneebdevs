@@ -2,16 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
-  webpack: (config, { webpack }) => {
-    config.plugins.push(
-      new webpack.ProvidePlugin({
-        $: "jquery",
-        jQuery: "jquery",
-        "window.jQuery": "jquery",
-      })
-    );
-    return config;
-  },
   images: {
     // AVIF first (smallest), WebP fallback. Next resizes + re-encodes on
     // request and caches the result, so the 1-2MB portfolio PNGs are served

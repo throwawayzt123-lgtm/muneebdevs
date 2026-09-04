@@ -26,34 +26,44 @@ const services = [
   }
 ];
 
+/*
+  `order` controls the position of each card in the grid — 1 shows first, 2
+  second, and so on. Change the numbers here to re-arrange the projects; the
+  list below can stay in any order, and the "01 / 02 / …" label on each card
+  follows the sorted position automatically.
+*/
 const projects = [
   {
+    order: 1,
     title: 'Velvet Drip',
     tag: '3D / WebGL',
     description: 'Cinematic 3D coffee brand experience',
     url: 'https://velvetdrip-lilac.vercel.app/',
-    image: '/images/portfolio/elitework/aurelia-cafewebsite.png'
+    image: '/images/portfolio/elitework/aurelia-cafewebsite.webp'
   },
   {
+    order: 2,
     title: 'Velox Elite',
     tag: '3D Showcase',
     description: 'Interactive drag-to-rotate car configurator',
     url: 'https://veloxelite.vercel.app/',
-    image: '/images/portfolio/elitework/veloxelite.png'
+    image: '/images/portfolio/elitework/veloxelite.webp'
   },
   {
+    order: 3,
     title: 'Web Bridge CRM',
     tag: 'Enterprise CRM',
     description: 'Role-based enterprise management platform',
     url: 'https://webbridgecrm.vercel.app/login',
-    image: '/images/portfolio/elitework/webbridgecrm.png'
+    image: '/images/portfolio/elitework/webbridgecrm.webp'
   },
   {
+    order: 4,
     title: 'Chandup CRM',
     tag: 'Enterprise Software',
     description: 'Multi-branch UPS repair management system',
     url: 'https://chandups.vercel.app/',
-    image: '/images/portfolio/elitework/chandupscrm.png'
+    image: '/images/portfolio/elitework/chandupscrm.webp'
   }
 ];
 

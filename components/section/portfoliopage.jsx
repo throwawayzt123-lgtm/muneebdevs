@@ -59,14 +59,17 @@ function PortfolioPage({ title = '', subtitle = '', intro = '', services = [], p
           delay: (i % 2) * 0.1,
         });
 
+        /* The artwork settles into focus — a soft fade with the image easing
+           down from a slight overscale — rather than the shutter/curtain
+           clip-path wipe this used to run. */
         tl.fromTo(media,
-          { clipPath: 'inset(100% 0% 0% 0%)' },
-          { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.8, ease: 'power3.inOut', clearProps: 'clip-path' }
+          { opacity: 0, scale: 1.06 },
+          { opacity: 1, scale: 1, duration: 0.9, ease: 'power2.out', clearProps: 'opacity,transform' }
         )
           .fromTo(body,
-            { y: 16, opacity: 0 },
+            { y: 14, opacity: 0 },
             { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' },
-            '-=0.35'
+            '-=0.55'
           );
 
         /* Gentle drift keeps the grid alive while scrolling past it, and the
@@ -124,6 +127,13 @@ function PortfolioPage({ title = '', subtitle = '', intro = '', services = [], p
     };
   }, []);
 
+  /* `order` on each project drives the sequence; anything without one falls
+     to the end. Sorting here (not in the data) means the arrays can be edited
+     in any order and the numbering still decides what shows first. */
+  const ordered = [...projects].sort(
+    (a, b) => (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER)
+  );
+
   return (
     <div className="container" ref={rootRef}>
       <div className="row">
@@ -169,7 +179,7 @@ function PortfolioPage({ title = '', subtitle = '', intro = '', services = [], p
       </div>
 
       <div className="row g-4 work-grid">
-        {projects.map((project, index) => {
+        {ordered.map((project, index) => {
           /* Cards with a live URL open the site; the rest render as plain cards. */
           const Card = project.url ? 'a' : 'div';
           const linkProps = project.url
@@ -181,15 +191,6 @@ function PortfolioPage({ title = '', subtitle = '', intro = '', services = [], p
             <div className="col-lg-6" key={project.title}>
               <Card className={project.url ? "work-card" : "work-card no-link"} {...linkProps}>
                 <div className="work-card-media">
-                  <Image
-                    src={project.image}
-                    alt=""
-                    aria-hidden="true"
-                    fill
-                    quality={20}
-                    sizes="(max-width: 767px) 100vw, 50vw"
-                    className="work-card-img-blur"
-                  />
                   <Image
                     src={project.image}
                     alt={project.title}

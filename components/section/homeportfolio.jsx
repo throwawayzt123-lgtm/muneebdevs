@@ -11,55 +11,68 @@ import {
   Shows a selection of live full stack projects and links out to the
   dedicated portfolio pages for the full lists.
 */
+/*
+  `order` controls the position of each card in the grid — 1 shows first, 2
+  second, and so on. Change the numbers here to re-arrange the projects; the
+  list below can stay in any order, and the "01 / 02 / …" label on each card
+  follows the sorted position automatically.
+*/
 const projects = [
   {
+    order: 1,
     title: 'Web Bridge Consulting',
     tag: 'Next JS',
     description: 'Full-spectrum BPO and telecom agency site',
     url: 'https://www.webbridgeconsulting.com/',
-    image: '/images/portfolio/fullstack/Webbridge.png'
+    image: '/images/portfolio/fullstack/Webbridge.webp'
   },
   {
+    order: 2,
     title: 'Web Bridge CRM',
     tag: 'CRM',
     description: 'Enterprise management platform with role-based access',
     url: 'https://webbridgecrm.vercel.app/login',
-    image: '/images/portfolio/fullstack/WebBridgecrm.png'
+    image: '/images/portfolio/fullstack/webbridgecrm.webp'
   },
   {
+    order: 3,
     title: 'Chandup CRM',
     tag: 'CRM',
     description: 'Repair management platform for admin and staff',
     url: 'https://chandups.vercel.app/',
-    image: '/images/portfolio/fullstack/chandupscrm.png'
+    image: '/images/portfolio/fullstack/chandupscrm.webp'
   },
   {
+    order: 4,
     title: 'Webcraft Consulting',
     tag: 'Next JS',
     description: 'Business consulting site with custom animations',
     url: 'https://webcraftcons.com/',
-    image: '/images/portfolio/fullstack/webcraftconsulting.png'
+    image: '/images/portfolio/fullstack/webcraftconsulting.webp'
   },
   {
+    order: 5,
     title: 'Vemoosc',
     tag: 'React JS',
     description: 'Oil and industrial services company platform',
     url: 'https://vemoosc.com/',
-    image: '/images/portfolio/fullstack/UAE-industrialServices.png'
+    image: '/images/portfolio/fullstack/vemooscUAE-industrialServices.webp'
   },
   {
+    order: 6,
     title: 'Velox Elite',
     tag: 'React JS',
     description: 'Luxury car rental platform with live booking',
     url: 'https://veloxelite.vercel.app/',
-    image: '/images/portfolio/fullstack/veloxelite-carrental.png'
+    image: '/images/portfolio/elitework/veloxelite.webp'
   },
   {
+    order: 7,
     title: 'AutoLab',
     tag: 'React JS',
     description: 'Premium car detailing and studio booking site',
     url: 'https://autolab-six.vercel.app/',
-    image: '/images/portfolio/fullstack/autolabcardetailing.png'
+    image: '/images/portfolio/fullstack/autolabcardetailing.webp'
   }
 ];
 
@@ -99,14 +112,17 @@ function HomePortfolio() {
           delay: (i % 2) * 0.1,
         });
 
+        /* The artwork settles into focus — a soft fade with the image easing
+           down from a slight overscale — rather than the shutter/curtain
+           clip-path wipe this used to run. */
         tl.fromTo(media,
-          { clipPath: 'inset(100% 0% 0% 0%)' },
-          { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.8, ease: 'power3.inOut', clearProps: 'clip-path' }
+          { opacity: 0, scale: 1.06 },
+          { opacity: 1, scale: 1, duration: 0.9, ease: 'power2.out', clearProps: 'opacity,transform' }
         )
           .fromTo(body,
-            { y: 16, opacity: 0 },
+            { y: 14, opacity: 0 },
             { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' },
-            '-=0.35'
+            '-=0.55'
           );
 
         /* Gentle drift keeps the grid alive while scrolling past it, and the
@@ -164,6 +180,13 @@ function HomePortfolio() {
     };
   }, []);
 
+  /* `order` on each project drives the sequence; anything without one falls
+     to the end. Sorting here (not in the data) means the arrays can be edited
+     in any order and the numbering still decides what shows first. */
+  const ordered = [...projects].sort(
+    (a, b) => (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER)
+  );
+
   return (
     <div className="container" ref={rootRef}>
       <div className="row">
@@ -176,7 +199,7 @@ function HomePortfolio() {
       <div className="spacer-single"></div>
 
       <div className="row g-4 work-grid">
-        {projects.map((project, index) => {
+        {ordered.map((project, index) => {
           const indexLabel = String(index + 1).padStart(2, '0');
           return (
             <div className="col-lg-6" key={project.title}>
@@ -185,15 +208,6 @@ function HomePortfolio() {
                 target="_blank"
                 rel="noreferrer">
                 <div className="work-card-media">
-                  <Image
-                    src={project.image}
-                    alt=""
-                    aria-hidden="true"
-                    fill
-                    quality={20}
-                    sizes="(max-width: 767px) 100vw, 50vw"
-                    className="work-card-img-blur"
-                  />
                   <Image
                     src={project.image}
                     alt={project.title}
