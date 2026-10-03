@@ -41,7 +41,7 @@ const Navbar = function () {
         <nav className="navbar transition">
         <div className="container">
           <Link  className="navbar-brand" activeClass="active" spy to="hero-area">
-            <Image src={logoImg} className="img-fluid d-block imginit" alt="Muneeb Ur Rehman" height={62} priority style={{width: '250px', height: '130px'}}/>
+            <Image src={logoImg} className="img-fluid d-block imginit" alt="Muneeb Ur Rehman" height={62} priority style={{width: 'auto', height: '62px'}}/>
           </Link>
           {/* Desktop menu Here */}
           <div className="dekstopmenu">
@@ -64,9 +64,9 @@ const Navbar = function () {
               <li className="nav-item has-dropdown"
                 onMouseEnter={() => setPortfolio(true)}
                 onMouseLeave={() => setPortfolio(false)}>
-                <Link className="nav-link transition dropdown-toggle-custom" activeClass="active" spy to="gallery">
+                <NextLink className="nav-link transition dropdown-toggle-custom" href="/portfolio">
                   Portfolio
-                </Link>
+                </NextLink>
                 <ul className={showPortfolio ? "nav-dropdown show" : "nav-dropdown"}>
                   <li>
                     <NextLink href="/portfolio/full-stack">Full Stack</NextLink>
@@ -113,9 +113,9 @@ const Navbar = function () {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link transition mobile-dropdown-label" onClick={() => setMenu(false)} smooth activeClass="active" spy to="gallery">
+                <NextLink className="nav-link transition mobile-dropdown-label" onClick={() => setMenu(false)} href="/portfolio">
                   Portfolio
-                </Link>
+                </NextLink>
                 <ul className="mobile-subnav">
                   <li>
                     <NextLink onClick={() => setMenu(false)} href="/portfolio/full-stack">Full Stack</NextLink>

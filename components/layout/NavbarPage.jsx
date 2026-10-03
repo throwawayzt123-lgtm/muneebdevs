@@ -64,7 +64,7 @@ const NavbarPage = function () {
               <li className="nav-item has-dropdown"
                 onMouseEnter={() => setPortfolio(true)}
                 onMouseLeave={() => setPortfolio(false)}>
-                <NextLink className="nav-link transition dropdown-toggle-custom" href="/#gallery">
+                <NextLink className="nav-link transition dropdown-toggle-custom" href="/portfolio">
                   Portfolio
                 </NextLink>
                 <ul className={showPortfolio ? "nav-dropdown show" : "nav-dropdown"}>
@@ -103,7 +103,7 @@ const NavbarPage = function () {
                 <NextLink onClick={() => setMenu(false)} className="nav-link transition" href="/#whatido">What I Do</NextLink>
               </li>
               <li className="nav-item">
-                <NextLink onClick={() => setMenu(false)} className="nav-link transition mobile-dropdown-label" href="/#gallery">
+                <NextLink onClick={() => setMenu(false)} className="nav-link transition mobile-dropdown-label" href="/portfolio">
                   Portfolio
                 </NextLink>
                 <ul className="mobile-subnav">

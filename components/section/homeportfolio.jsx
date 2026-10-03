@@ -63,7 +63,7 @@ const projects = [
     title: 'Velox Elite',
     tag: 'React JS',
     description: 'Luxury car rental platform with live booking',
-    url: 'https://veloxelite.vercel.app/',
+    url: 'https://velox-omega-weld.vercel.app/',
     image: '/images/portfolio/elitework/veloxelite.webp'
   },
   {
@@ -104,7 +104,7 @@ function HomePortfolio() {
          while the caption panel below fades in a beat later — a cinematic
          reveal in place of the old 3D tilt-and-scale. */
       cards.forEach((card, i) => {
-        const media = card.querySelector('.work-card-media');
+        const frame = card.querySelector('.work-card-media');
         const body = card.querySelector('.work-card-body');
 
         const tl = gsap.timeline({
@@ -115,9 +115,9 @@ function HomePortfolio() {
         /* The artwork settles into focus — a soft fade with the image easing
            down from a slight overscale — rather than the shutter/curtain
            clip-path wipe this used to run. */
-        tl.fromTo(media,
-          { opacity: 0, scale: 1.06 },
-          { opacity: 1, scale: 1, duration: 0.9, ease: 'power2.out', clearProps: 'opacity,transform' }
+        tl.fromTo(frame,
+          { opacity: 0, y: 18, scale: .985 },
+          { opacity: 1, y: 0, scale: 1, duration: .9, ease: 'power3.out', clearProps: 'opacity,transform' }
         )
           .fromTo(body,
             { y: 14, opacity: 0 },
@@ -125,25 +125,13 @@ function HomePortfolio() {
             '-=0.55'
           );
 
-        /* Gentle drift keeps the grid alive while scrolling past it, and the
-           hover zoom lives here too (not in CSS) so both animate through
-           GSAP alone. Splitting them between GSAP (scroll, via scrub) and a
-           CSS `transition: transform` (hover) makes the browser try to ease
-           into every scrubbed scroll frame, which reads as a laggy,
-           endlessly "looping" image — GSAP composites yPercent and scale
-           into one transform per tween, so a single .to() covers both. */
+        /* Hover zoom runs through GSAP rather than a CSS transition: the two
+           fighting over the same `transform` is what used to make the image
+           look like it was endlessly re-animating. The old scroll-linked
+           drift is gone — inside the framed window it would slide the
+           capture off its own bottom edge, and dropping it also removes one
+           scrubbed ScrollTrigger per card. */
         const img = card.querySelector('.work-card-img');
-
-        gsap.to(img, {
-          scrollTrigger: {
-            trigger: card,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
-          },
-          yPercent: -7,
-          ease: 'none',
-        });
 
         const onEnter = () => gsap.to(img, { scale: 1.08, duration: 0.8, ease: 'power3.out', overwrite: 'auto' });
         const onLeave = () => gsap.to(img, { scale: 1, duration: 0.8, ease: 'power3.out', overwrite: 'auto' });
@@ -215,20 +203,25 @@ function HomePortfolio() {
                     sizes="(max-width: 767px) 100vw, 50vw"
                     className="work-card-img"
                   />
-                  <span className="work-card-overlay">
-                    <span className="work-card-visit">
-                      Visit Site <i className="fa fa-long-arrow-right"></i>
-                    </span>
-                  </span>
                 </div>
                 <div className="work-card-body">
-                  <span className="work-card-tag">{project.tag}</span>
-                  <h3 className="work-card-title">{project.title}</h3>
-                  <p className="work-card-desc">{project.description}</p>
-                  <span className="work-card-link">
-                    View Project <i className="fa fa-long-arrow-right"></i>
-                  </span>
                   <span className="work-card-index" aria-hidden="true">{indexLabel}</span>
+                  <div className="work-card-meta">
+                    <span className="work-card-tag">{project.tag}</span>
+                    <span className="work-card-rule" aria-hidden="true"></span>
+                  </div>
+                  <h3 className="work-card-title">{project.title}</h3>
+                  {project.description && (
+                    <p className="work-card-desc">{project.description}</p>
+                  )}
+                  {project.url && (
+                    <span className="work-card-foot">
+                      <span className="work-card-action">View Project</span>
+                      <span className="work-card-cta" aria-hidden="true">
+                        <i className="fa fa-long-arrow-right"></i>
+                      </span>
+                    </span>
+                  )}
                 </div>
               </a>
             </div>

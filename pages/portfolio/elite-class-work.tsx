@@ -46,7 +46,7 @@ const projects = [
     title: 'Velox Elite',
     tag: '3D Showcase',
     description: 'Interactive drag-to-rotate car configurator',
-    url: 'https://veloxelite.vercel.app/',
+    url: 'https://velox-omega-weld.vercel.app/',
     image: '/images/portfolio/elitework/veloxelite.webp'
   },
   {

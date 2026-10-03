@@ -9,7 +9,7 @@ const links = [
   { label: 'Home', href: '/#hero-area' },
   { label: 'About me', href: '/#about' },
   { label: 'What I Do', href: '/#whatido' },
-  { label: 'Portfolio', href: '/#gallery' },
+  { label: 'Portfolio', href: '/portfolio' },
   { label: 'My resume', href: '/#resume' },
   { label: 'Contact Me', href: '/#contact' },
 ];

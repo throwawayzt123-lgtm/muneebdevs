@@ -86,7 +86,7 @@ const projects = [
     title: 'Velox Elite',
     tag: 'React JS',
     description: 'Luxury car rental platform with live booking',
-    url: 'https://veloxelite.vercel.app/',
+    url: 'https://velox-omega-weld.vercel.app/',
     image: '/images/portfolio/elitework/veloxelite.webp'
   }
 ];

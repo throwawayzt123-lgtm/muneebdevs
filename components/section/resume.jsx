@@ -122,18 +122,20 @@ function Resume() {
         );
       });
 
-      /* Each entry's card clips open left-to-right, like a page turning
-         over, instead of sliding in from the edge. */
+      /* Entries settle in along the rail — each card fades and eases in from
+         the line it hangs off, which suits the card layout better than the
+         left-to-right clip wipe this used to run. */
       gsap.utils.toArray('.resume-timeline').forEach((list) => {
         gsap.fromTo(list.querySelectorAll('.resume-item'),
-          { clipPath: 'inset(0% 100% 0% 0%)' },
+          { opacity: 0, x: -18 },
           {
-            scrollTrigger: { trigger: list, start: 'top 80%', once: true },
-            clipPath: 'inset(0% 0% 0% 0%)',
-            duration: 0.7,
-            ease: 'power3.inOut',
-            stagger: 0.18,
-            clearProps: 'clip-path',
+            scrollTrigger: { trigger: list, start: 'top 82%', once: true },
+            opacity: 1,
+            x: 0,
+            duration: 0.65,
+            ease: 'power3.out',
+            stagger: 0.14,
+            clearProps: 'opacity,transform',
           }
         );
       });
